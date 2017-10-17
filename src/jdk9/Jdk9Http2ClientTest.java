@@ -20,11 +20,12 @@ public class Jdk9Http2ClientTest {
         System.out.println(">>>>> Start >>>>>");
 
         HttpClient httpClient = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder(URI.create("http://www.google.com")).GET().build();
+        HttpRequest request = HttpRequest.newBuilder(URI.create("http://www.google.com"))
+                .version(HttpClient.Version.HTTP_2)
+                .GET().build();
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandler.asString());
 
-        System.out.println("Http response : " + response);
-
+        System.out.println(String.format("[Http response]\nHeader: %s\nBody: ", response.headers().map(), response.body()));
         System.out.println(">>>>> End >>>>>");
     }
 
